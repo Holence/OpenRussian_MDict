@@ -1,6 +1,6 @@
 # OpenRussian_MDict
 
-Convert OpenRussian.org CSVs to mdx for [Eudic](https://www.eudic.net/v4/en/app/eudic)
+Convert OpenRussian.org CSVs to mdx
 
 # Links
 
