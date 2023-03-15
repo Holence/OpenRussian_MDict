@@ -68,6 +68,10 @@ words_forms.csv
 Comparatives:
 words_forms.csv
 
+若为空：
+comparative
+superlative / -ая / -ее / -ие
+
 Short forms:
 words_forms.csv
 
