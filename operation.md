@@ -48,6 +48,8 @@ words_forms.csv
 
 - 若为perfective，Present处为空
 
+- 若为both或空，同imperfective
+
 Participles:
 words_forms.csv
 
