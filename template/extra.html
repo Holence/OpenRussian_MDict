@@ -1,0 +1,7 @@
+{% if overview.type == "noun" %}
+    <p>{{extra.gender}}{% if extra.indeclinable %}, indeclinable{% endif %}{% if extra.animate %}, animate{% endif %}{% if extra.sg_only %}, singular{% endif %}{% if extra.pl_only %}, plural{% endif %}</p>
+    <p>{% if extra.partner %}Partner: {{extra.partner}}{% endif %}</p>
+{% elif overview.type == "verb" %}
+    <p>Aspect: {{extra.aspect}}</p>
+    <p>{% if extra.partner %}Partner: {{extra.partner}}{% endif %}</p>
+{% endif %}

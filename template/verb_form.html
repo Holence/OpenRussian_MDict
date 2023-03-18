@@ -1,0 +1,153 @@
+<div class="section verb conjugation">
+    <h2>Conjugation</h2>
+    <div class="presfut table-container">
+       <table>
+          <thead>
+             <tr>
+                <th></th>
+                <th class="table-audio">Present</th>
+                <th class="table-audio">Future</th>
+             </tr>
+          </thead>
+          <tbody>
+             <tr>
+                <th>я</th>
+                <td>
+                    {% if extra.aspect != "prefective" %}{{forms.ru_verb_presfut_sg1}}{% endif %}
+                </td>
+                <td>
+                   {% if extra.aspect != "prefective" %}бу́ду {% endif %}{{forms.ru_verb_presfut_sg1}}
+                </td>
+             </tr>
+             <tr>
+                <th>ты</th>
+                <td>
+                    {% if extra.aspect != "prefective" %}{{forms.ru_verb_presfut_pl1}}{% endif %}
+                </td>
+                <td>
+                   {% if extra.aspect != "prefective" %}бу́дешь {% endif %}{{forms.ru_verb_presfut_pl1}}
+                </td>
+             </tr>
+             <tr>
+                <th>он/она́/оно́</th>
+                <td>
+                    {% if extra.aspect != "prefective" %}{{forms.ru_verb_presfut_sg2}}{% endif %}
+                </td>
+                <td>
+                   {% if extra.aspect != "prefective" %}бу́дет {% endif %}{{forms.ru_verb_presfut_sg2}}
+                </td>
+             </tr>
+             <tr>
+                <th>мы</th>
+                <td>
+                    {% if extra.aspect != "prefective" %}{{forms.ru_verb_presfut_pl2}}{% endif %}
+                </td>
+                <td>
+                   {% if extra.aspect != "prefective" %}бу́дем {% endif %}{{forms.ru_verb_presfut_pl2}}
+                </td>
+             </tr>
+             <tr>
+                <th>вы</th>
+                <td>
+                    {% if extra.aspect != "prefective" %}{{forms.ru_verb_presfut_sg3}}{% endif %}
+                </td>
+                <td>
+                   {% if extra.aspect != "prefective" %}бу́дете {% endif %}{{forms.ru_verb_presfut_sg3}}
+                </td>
+             </tr>
+             <tr>
+                <th>они́</th>
+                <td>
+                    {% if extra.aspect != "prefective" %}{{forms.ru_verb_presfut_pl3}}{% endif %}
+                </td>
+                <td>
+                   {% if extra.aspect != "prefective" %}бу́дут {% endif %}{{forms.ru_verb_presfut_pl3}}
+                </td>
+             </tr>
+          </tbody>
+       </table>
+    </div>
+    <div class="past-imp">
+       <div class="table-container imperatives">
+          <table>
+             <tbody>
+                <tr>
+                   <th class="table-audio" colspan="2">Imperative</th>
+                </tr>
+                <tr>
+                   <th>ты</th>
+                   <td>{{forms.ru_verb_imperative_sg}}</td>
+                </tr>
+                <tr>
+                   <th>вы</th>
+                   <td>{{forms.ru_verb_imperative_pl}}</td>
+                </tr>
+             </tbody>
+          </table>
+       </div>
+       <div class="table-container past">
+          <table>
+             <tbody>
+                <tr>
+                   <th colspan="2" class="table-audio">Past</th>
+                </tr>
+                <tr>
+                   <th>masculine</th>
+                   <td>{{forms.ru_verb_past_m}}</td>
+                </tr>
+                <tr>
+                   <th>feminine</th>
+                   <td>{{forms.ru_verb_past_f}}</td>
+                </tr>
+                <tr>
+                   <th>neuter</th>
+                   <td>{{forms.ru_verb_past_n}}</td>
+                </tr>
+                <tr>
+                   <th>plural</th>
+                   <td>{{forms.ru_verb_past_pl}}</td>
+                </tr>
+             </tbody>
+          </table>
+       </div>
+    </div>
+    <div class="participles">
+       <h2>Participles</h2>
+       <div class="table-container">
+          <table>
+             <tbody>
+                <tr class="participle-form">
+                   <th>Active present</th>
+                   <td>{{forms.ru_verb_participle_active_present}}</td>
+                   <td><i>someone who is doing</i></td>
+                </tr>
+                <tr class="participle-form">
+                   <th>Active past</th>
+                   <td>{{forms.ru_verb_participle_active_past}}</td>
+                   <td><i>someone who was doing</i></td>
+                </tr>
+                <tr class="participle-form">
+                   <th>Passive present</th>
+                   <td>{{forms.ru_verb_participle_passive_present}}</td>
+                   <td><i>something which is being done</i></td>
+                </tr>
+                <tr class="participle-form">
+                   <th>Passive past</th>
+                   <td>{{forms.ru_verb_participle_passive_past}}</td>
+                   <td><i>something which was being done</i></td>
+                </tr>
+                <tr class="participle-form">
+                   <th>Gerund present</th>
+                   <td>{{forms.ru_verb_gerund_present}}</td>
+                   <td><i>while doing (present)</i></td>
+                </tr>
+                <tr class="participle-form">
+                   <th>Gerund past</th>
+                   <td>{{forms.ru_verb_gerund_past}}</td>
+                   <td><i>while doing (past)</i></td>
+                </tr>
+             </tbody>
+          </table>
+       </div>
+    </div>
+ </div>
