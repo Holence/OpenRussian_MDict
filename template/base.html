@@ -1,71 +1,122 @@
 <div id="content">
     <div class="page word">
-       <div class="version">
-          <div class="section basics">
-             <div class="bare">
-                <h1>
-                   <span>{{overview.accented}}</span>
-                </h1>
-             </div>
-             <div class="overview">
-                <p>{{overview.type|title}}</p>
-                {% include "extra.html" %}
-                {% if overview.derived_from_word %}<p>Form of: {{overview.derived_from_word}}</p>{% endif %}
-                {% if overview.rank != -1 %}<p>Rank {{overview.rank}}</p>{% endif %}
-             </div>
-          </div>
-          <div class="section translations">
-             <h2>Translation</h2>
-             <ul>
-                {% for t in translations %}
-                <li>
-                   <div class="content">
-                      <p class="tl">{{t.0}}</p>
-                      {% if t.1 != "" %}<p class="example">Example: {{t.1}} - {{t.2}}</p>{% endif %}
-                      {% if t.3 != "" %}<p class="info">Info: {{t.3}}</p>{% endif %}
-                   </div>
-                </li>
-                {% endfor %}
-             </ul>
-          </div>
-          <div class="section sentences">
-             <h2>Examples</h2>
-             <ul class="sentences">
-                {% for s in sentences %}
-                <li class="sentence">
-                   <span class="ru">{{s.0}}</span>
-                   <span class="tl">{{s.1}}</span>
-                </li>
-                {% endfor %}
-             </ul>
-          </div>
+        <div class="version">
+            
+            <div class="section basics">
+                <div class="bare">
+                    <h1>
+                        <span>{{overview.accented}}</span>
+                    </h1>
+                </div>
+                <div class="overview">
+                    <p>{{overview.type|title}}</p>
+                    {% include "extra.html" %}
+                    {% if overview.derived_from_word %}<p>Form of: {{overview.derived_from_word}}</p>{% endif %}
+                    {% if overview.rank != -1 %}<p>Rank {{overview.rank}}</p>{% endif %}
+                </div>
+            </div>
+            
+            {% if translations %}
+            <div class="section translations">
+                <h2>Translation</h2>
+                <ul>
+                    {% for t in translations %}
+                    <li>
+                        <div class="content">
+                            <p class="tl">{{t.0}}</p>
+                            {% if t.1 != "" %}<p class="example">Example: {{t.1}} - {{t.2}}</p>{% endif %}
+                            {% if t.3 != "" %}<p class="info">Info: {{t.3}}</p>{% endif %}
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            
+            {% if usage %}
+            <div class="section usage">
+                <h2>Usage info</h2>
+                <div class="content">
+                    <p>{{usage|linebreaksbr}}</p>
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if expressions %}
+            {% if overview.type != "expression" %}
+            <div class="section expressions">
+                <h2>Expressions</h2>
+                <ul>
+                    {% for e in expressions %}
+                    <li>
+                        <span class="ru">{{e.0}}</span>
+                        <span class="tl">{{e.1}}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% else %}
+            <div class="section components">
+                <h2>Expression parts</h2>
+                <ul>
+                    {% for e in expressions %}
+                    <li>
+                        <span class="ru">{{e.0}}</span>
+                        <span class="tl">{{e.1}}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% endif %}
+            
+            {% if sentences %}
+            <div class="section sentences">
+                <h2>Examples</h2>
+                <ul class="sentences">
+                    {% for s in sentences %}
+                    <li class="sentence">
+                        <span class="ru">{{s.0}}</span>
+                        <span class="tl">{{s.1}}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
 
-          {% if overview.type == "noun" %}{% include "noun_form.html" %}{% endif %}
-          {% if overview.type == "verb" %}{% include "verb_form.html" %}{% endif %}
-          
-          <div class="section relateds2">
-             <h2>Related words</h2>
-             <ul>
-                {% for w in relateds.related %}
-                <li>{{w.0}} - {{w.1}}</li>
-                {% endfor %}
-             </ul>
+            {% if overview.type == "noun" %}{% include "noun_form.html" %}{% endif %}
+            {% if overview.type == "verb" %}{% include "verb_form.html" %}{% endif %}
+            {% if overview.type == "adjective" %}{% include "adjective_form.html" %}{% endif %}
 
-             <h2>Synonym words</h2>
-             <ul>
-                {% for w in relateds.synonym %}
-                <li>{{w.0}} - {{w.1}}</li>
-                {% endfor %}
-             </ul>
-             
-             <h2>Antonym words</h2>
-             <ul>
-                {% for w in relateds.antonym %}
-                <li>{{w.0}} - {{w.1}}</li>
-                {% endfor %}
-             </ul>
+            <div class="section relateds2">
+                {% if relateds.related %}
+                <h2>Related words</h2>
+                <ul>
+                    {% for w in relateds.related %}
+                    <li>{{w.0}} - <span>{{w.1}} &nbsp;</span></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                
+                {% if relateds.synonym %}
+                <h2>Synonym words</h2>
+                <ul>
+                    {% for w in relateds.synonym %}
+                    <li>{{w.0}} - <span>{{w.1}} &nbsp;</span></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
 
-          </div>
-       </div>
+                {% if relateds.antonym %}
+                <h2>Antonym words</h2>
+                <ul>
+                    {% for w in relateds.antonym %}
+                    <li>{{w.0}} - <span>{{w.1}} &nbsp;</span></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+            </div>
+        </div>
     </div>
- </div>
+</div>

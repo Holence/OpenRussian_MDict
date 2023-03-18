@@ -1,0 +1,104 @@
+<div class="section declension adjective has-shorts">
+    <h2>Declension</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="table-audio"><span>masculine</span></th>
+                    <th class="table-audio"><span>feminine</span></th>
+                    <th class="table-audio"><span>neuter</span></th>
+                    <th class="table-audio"><span>plural</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th><span>nominative</span></th>
+                    <td>{% if 'ru_adj_m_nom' in forms %}{{forms.ru_adj_m_nom}}{% else %}-{% endif %}</td>
+                    <td>{% if 'ru_adj_f_nom' in forms %}{{forms.ru_adj_f_nom}}{% else %}-{% endif %}</td>
+                    <td>{% if 'ru_adj_n_nom' in forms %}{{forms.ru_adj_n_nom}}{% else %}-{% endif %}</td>
+                    <td>{% if 'ru_adj_pl_nom' in forms %}{{forms.ru_adj_pl_nom}}{% else %}-{% endif %}</td>
+                </tr>
+                <tr>
+                    <th><span>genitive</span></th>
+                    <td>{% if 'ru_adj_m_gen' in forms %}{{forms.ru_adj_m_gen}}{% else %}-{% endif %}</td>
+                    <td>{% if 'ru_adj_f_gen' in forms %}{{forms.ru_adj_f_gen}}{% else %}-{% endif %}</td>
+                    <td>{% if 'ru_adj_n_gen' in forms %}{{forms.ru_adj_n_gen}}{% else %}-{% endif %}</td>
+                    <td>{% if 'ru_adj_pl_gen' in forms %}{{forms.ru_adj_pl_gen}}{% else %}-{% endif %}</td>
+                </tr>
+                <tr>
+                    <th><span>dative</span></th>
+                    <td>{% if 'ru_adj_m_dat' in forms %}{{forms.ru_adj_m_dat}}{% else %}-{% endif %}</td>
+                    <td>{% if 'ru_adj_f_dat' in forms %}{{forms.ru_adj_f_dat}}{% else %}-{% endif %}</td>
+                    <td>{% if 'ru_adj_n_dat' in forms %}{{forms.ru_adj_n_dat}}{% else %}-{% endif %}</td>
+                    <td>{% if 'ru_adj_pl_dat' in forms %}{{forms.ru_adj_pl_dat}}{% else %}-{% endif %}</td>
+                </tr>
+                <tr>
+                    <th><span>accusative</span></th>
+                    <td>{% if 'ru_adj_m_acc' in forms %}{{forms.ru_adj_m_acc}}{% else %}-{% endif %}</td>
+                    <td>{% if 'ru_adj_f_acc' in forms %}{{forms.ru_adj_f_acc}}{% else %}-{% endif %}</td>
+                    <td>{% if 'ru_adj_n_acc' in forms %}{{forms.ru_adj_n_acc}}{% else %}-{% endif %}</td>
+                    <td>{% if 'ru_adj_pl_acc' in forms %}{{forms.ru_adj_pl_acc}}{% else %}-{% endif %}</td>
+                </tr>
+                <tr>
+                    <th><span>instrumental</span></th>
+                    <td>{% if 'ru_adj_m_inst' in forms %}{{forms.ru_adj_m_inst}}{% else %}-{% endif %}</td>
+                    <td>{% if 'ru_adj_f_inst' in forms %}{{forms.ru_adj_f_inst}}{% else %}-{% endif %}</td>
+                    <td>{% if 'ru_adj_n_inst' in forms %}{{forms.ru_adj_n_inst}}{% else %}-{% endif %}</td>
+                    <td>{% if 'ru_adj_pl_inst' in forms %}{{forms.ru_adj_pl_inst}}{% else %}-{% endif %}</td>
+                </tr>
+                <tr>
+                    <th><span>prepositional</span></th>
+                    <td>{% if 'ru_adj_m_prep' in forms %}{{forms.ru_adj_m_prep}}{% else %}-{% endif %}</td>
+                    <td>{% if 'ru_adj_f_prep' in forms %}{{forms.ru_adj_f_prep}}{% else %}-{% endif %}</td>
+                    <td>{% if 'ru_adj_n_prep' in forms %}{{forms.ru_adj_n_prep}}{% else %}-{% endif %}</td>
+                    <td>{% if 'ru_adj_pl_prep' in forms %}{{forms.ru_adj_pl_prep}}{% else %}-{% endif %}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="section comparatives">
+    <h2>Comparatives</h2>
+    <div class="forms table-container">
+        <table>
+            <tbody>
+                <tr class="comparative">
+                    <th>comparative</th>
+                    <td>{% if 'ru_adj_comparative' in forms %}{{forms.ru_adj_comparative}}{% else %}-{% endif %}</td>
+                </tr>
+                <tr class="superlative">
+                    <th>superlative</th>
+                    <td>{% if 'ru_adj_superlative' in forms %}{{forms.ru_adj_superlative}}{% else %}-{% endif %}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="section adjective shorts">
+    <h2>Short forms</h2>
+    <div class="table-container">
+        <table>
+            <tbody>
+                <tr>
+                    <th>m</th>
+                    <td>{% if 'ru_adj_short_m' in forms %}{{forms.ru_adj_short_m}}{% else %}-{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>f</th>
+                    <td>{% if 'ru_adj_short_f' in forms %}{{forms.ru_adj_short_f}}{% else %}-{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>n</th>
+                    <td>{% if 'ru_adj_short_n' in forms %}{{forms.ru_adj_short_n}}{% else %}-{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>pl</th>
+                    <td>{% if 'ru_adj_short_pl' in forms %}{{forms.ru_adj_short_pl}}{% else %}-{% endif %}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

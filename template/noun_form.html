@@ -12,74 +12,68 @@
             <tbody>
                 <tr>
                     <th>
-                        <span class="short">nom.</span>
                         <span class="long">nominative</span>
                     </th>
                     <td>
-                        <p>{{forms.ru_noun_sg_nom}}</p>
+                        <p>{% if 'ru_noun_sg_nom' in forms %}{{forms.ru_noun_sg_nom}}{% else %}-{% endif %}</p>
                     </td>
                     <td>
-                        <p>{{forms.ru_noun_pl_nom}}</p>
+                        <p>{% if 'ru_noun_pl_nom' in forms %}{{forms.ru_noun_pl_nom}}{% else %}-{% endif %}</p>
                     </td>
                 </tr>
                 <tr>
                     <th>
-                        <span class="short">gen.</span>
                         <span class="long">genitive</span>
                     </th>
                     <td>
-                        <p>{{forms.ru_noun_sg_gen}}</p>
+                        <p>{% if 'ru_noun_sg_gen' in forms %}{{forms.ru_noun_sg_gen}}{% else %}-{% endif %}</p>
                     </td>
                     <td>
-                        <p>{{forms.ru_noun_pl_gen}}</p>
+                        <p>{% if 'ru_noun_pl_gen' in forms %}{{forms.ru_noun_pl_gen}}{% else %}-{% endif %}</p>
                     </td>
                 </tr>
                 <tr>
                     <th>
-                        <span class="short">dat.</span>
                         <span class="long">dative</span>
                     </th>
                     <td>
-                        <p>{{forms.ru_noun_sg_dat}}</p>
+                        <p>{% if 'ru_noun_sg_dat' in forms %}{{forms.ru_noun_sg_dat}}{% else %}-{% endif %}</p>
                     </td>
                     <td>
-                        <p>{{forms.ru_noun_pl_dat}}</p>
+                        <p>{% if 'ru_noun_pl_dat' in forms %}{{forms.ru_noun_pl_dat}}{% else %}-{% endif %}</p>
                     </td>
                 </tr>
                 <tr>
                     <th>
-                        <span class="short">acc.</span>
                         <span class="long">accusative</span>
                     </th>
                     <td>
-                        <p>{{forms.ru_noun_sg_acc}}</p>
+                        <p>{% if 'ru_noun_sg_acc' in forms %}{{forms.ru_noun_sg_acc}}{% else %}-{% endif %}</p>
                     </td>
                     <td>
-                        <p>{{forms.ru_noun_pl_acc}}</p>
+                        <p>{% if 'ru_noun_pl_acc' in forms %}{{forms.ru_noun_pl_acc}}{% else %}-{% endif %}</p>
                     </td>
                 </tr>
                 <tr>
                     <th>
-                        <span class="short">inst.</span>
                         <span class="long">instrumental</span>
                     </th>
                     <td>
-                        <p>{{forms.ru_noun_sg_inst}}</p>
+                        <p>{% if 'ru_noun_sg_inst' in forms %}{{forms.ru_noun_sg_inst}}{% else %}-{% endif %}</p>
                     </td>
                     <td>
-                        <p>{{forms.ru_noun_pl_inst}}</p>
+                        <p>{% if 'ru_noun_pl_inst' in forms %}{{forms.ru_noun_pl_inst}}{% else %}-{% endif %}</p>
                     </td>
                 </tr>
                 <tr>
                     <th>
-                        <span class="short">prep.</span>
                         <span class="long">prepositional</span>
                     </th>
                     <td>
-                        <p>{{forms.ru_noun_sg_prep}}</p>
+                        <p>{% if 'ru_noun_sg_prep' in forms %}{{forms.ru_noun_sg_prep}}{% else %}-{% endif %}</p>
                     </td>
                     <td>
-                        <p>{{forms.ru_noun_pl_prep}}</p>
+                        <p>{% if 'ru_noun_pl_prep' in forms %}{{forms.ru_noun_pl_prep}}{% else %}-{% endif %}</p>
                     </td>
                 </tr>
             </tbody>

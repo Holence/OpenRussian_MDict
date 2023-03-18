@@ -1,17 +1,7 @@
+import os
 import json
 with open("dict.json", "r", encoding="utf-8") as f:
-    data=json.load(f)
-
-import minify_html
-from django.conf import settings
-import django
-from django.template.loader import get_template
-settings.configure(TEMPLATES=[{
-    'BACKEND': 'django.template.backends.django.DjangoTemplates',
-    'DIRS': ['./template']
-}])
-django.setup()
-
+    data=json.loads(f.read())
 convert={
     'f': "feminine",
     'm': "masculine",
@@ -22,28 +12,46 @@ convert={
     'p': "perfective",
     '': "unknown",
 }
+for word, dlist in data.items():
+    for Dict in dlist:
+        if Dict["overview"]["type"]=="noun":
+            Dict["extra"]["gender"] = convert[Dict["extra"]["gender"]]
+        if Dict["overview"]["type"]=="verb":
+            Dict["extra"]["aspect"] = convert[Dict["extra"]["aspect"]]
+
+
+import minify_html
+from django.conf import settings
+import django
+from django.template.loader import get_template
+settings.configure(TEMPLATES=[{
+    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    'DIRS': ['./template']
+}])
+django.setup()
 css='<link rel="stylesheet" type="text/css" href="style.css" />\n'
 
-noun=data["человек"]
-for Dict in noun:
-    if Dict["overview"]["type"]=="noun":
-        Dict["extra"]["gender"] = convert[Dict["extra"]["gender"]]
-    if Dict["overview"]["type"]=="verb":
-        Dict["extra"]["aspect"] = convert[Dict["extra"]["aspect"]]
-    
-    res=css+get_template("base.html").render(Dict)
-    res = minify_html.minify(res, minify_js=True)
-    with open("data/n.html", "w", encoding="utf-8") as f:
-        f.write(res)
+def generate_html(dlist):
+    text=""
+    for Dict in dlist:
+        text += get_template("base.html").render(Dict)
+    text = minify_html.minify(text, minify_js=True)
+    text = css+text
+    return text
 
-verb=data["любить"]
-for Dict in verb:
-    if Dict["overview"]["type"]=="noun":
-        Dict["extra"]["gender"] = convert[Dict["extra"]["gender"]]
-    if Dict["overview"]["type"]=="verb":
-        Dict["extra"]["aspect"] = convert[Dict["extra"]["aspect"]]
-    
-    res=css+get_template("base.html").render(Dict)
-    res = minify_html.minify(res, minify_js=True)
-    with open("data/v.html", "w", encoding="utf-8") as f:
-        f.write(res)
+
+# data={
+#     "знать": data["знать"]
+# }
+
+# # 一个词一个html
+# for word, dlist in data.items():
+#     with open("data/%s.html"%word, "w", encoding="utf-8") as f:
+#         f.write(generate_html(dlist))
+
+# # MdxBuilder的html
+if os.path.exists("Mdx_html.txt"):
+    os.remove("Mdx_html.txt")
+with open("Mdx_html.txt", "a", encoding="utf-8") as f:
+    for word, dlist in data.items():
+        f.write(word+"\n"+generate_html(dlist)+"\n</>\n")
