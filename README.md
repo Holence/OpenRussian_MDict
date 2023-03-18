@@ -12,7 +12,7 @@ Convert OpenRussian.org CSVs to mdx
 
 4. MdxBuilder
 
-   ![MdxBuilder](D:\0000\OpenRussian_MDict\pic\MdxBuilder.jpg)
+   ![MdxBuilder](pic\MdxBuilder.jpg)
 
 # Links
 
