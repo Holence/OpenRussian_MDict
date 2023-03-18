@@ -14,6 +14,16 @@ Convert OpenRussian.org CSVs to mdx
 
    ![MdxBuilder](pic/MdxBuilder.jpg)
 
+# Screenshots
+
+PC
+
+<img src="pic/Eudic_win10.jpg" alt="Eudic_win10" style="zoom:50%;" />
+
+Android
+
+<img src="pic/Eudic_android.png" alt="Eudic_android" style="zoom:50%;" />
+
 # Links
 
 - [OpenRussian](https://en.openrussian.org/) - [Database](https://app.togetherdb.com/db/fwoedz5fvtwvq03v/russian3)

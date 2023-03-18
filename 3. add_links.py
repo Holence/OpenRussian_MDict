@@ -10,6 +10,7 @@ words.info()
 words_forms_csv=pd.read_csv("russian3/words_forms.csv", usecols=["word_id", "form"])
 words_forms_csv=words_forms_csv[~words_forms_csv["form"].isna()]
 words_forms_csv=words_forms_csv[words_forms_csv["form"]!="-"]
+words_forms_csv=words_forms_csv[words_forms_csv["form"]!="—"]
 words_forms_csv["form"].replace("'", "", regex=True, inplace=True)
 words_forms_csv=words_forms_csv[words_forms_csv["word_id"].isin(words["id"].values)]
 words_forms_csv=words_forms_csv[~words_forms_csv["form"].isin(words["bare"].values)]
