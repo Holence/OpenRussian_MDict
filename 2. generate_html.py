@@ -1,5 +1,6 @@
 import os
 import json
+from tqdm import tqdm
 with open("dict.json", "r", encoding="utf-8") as f:
     data=json.loads(f.read())
 convert={
@@ -53,5 +54,5 @@ def generate_html(dlist):
 if os.path.exists("Mdx_html.txt"):
     os.remove("Mdx_html.txt")
 with open("Mdx_html.txt", "a", encoding="utf-8") as f:
-    for word, dlist in data.items():
+    for word, dlist in tqdm(data.items()):
         f.write(word+"\n"+generate_html(dlist)+"\n</>\n")
