@@ -4,13 +4,15 @@ Convert OpenRussian.org CSVs to mdx
 
 # Building
 
-1. From CSVs to Json Dict (generate_dict.py \ generate_dict.ipynb)
+1. Get CSVs from OpenRussian.org [Database](https://app.togetherdb.com/db/fwoedz5fvtwvq03v/russian3), put them in folder "russian3" and rename them (removing the "russian3 - " part).
 
-2. From Json Dict to Html (generate_html.py)
+2. From CSVs to Json Dict (generate_dict.py \ generate_dict.ipynb)
 
-3. Append Forms (linking to bare) using "@@@LINK=" (add_links.py)
+3. From Json Dict to Html (generate_html.py)
 
-4. MdxBuilder
+4. Append Forms (linking to bare) using "@@@LINK=" (add_links.py)
+
+5. MdxBuilder
 
    ![MdxBuilder](pic/MdxBuilder.jpg)
 
