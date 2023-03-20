@@ -1,26 +1,6 @@
 import os
 import json
 from tqdm import tqdm
-with open("dict.json", "r", encoding="utf-8") as f:
-    data=json.loads(f.read())
-convert={
-    'f': "feminine",
-    'm': "masculine",
-    'n': "neuter",
-    'pl': "plural",
-    'b': "both",
-    'i': "imperfective",
-    'p': "perfective",
-    '': "unknown",
-}
-for word, dlist in data.items():
-    for Dict in dlist:
-        if Dict["overview"]["type"]=="noun":
-            Dict["extra"]["gender"] = convert[Dict["extra"]["gender"]]
-        if Dict["overview"]["type"]=="verb":
-            Dict["extra"]["aspect"] = convert[Dict["extra"]["aspect"]]
-
-
 import minify_html
 from django.conf import settings
 import django
@@ -40,10 +20,32 @@ def generate_html(dlist):
     text = css+text
     return text
 
+with open("dict.json", "r", encoding="utf-8") as f:
+    data=json.loads(f.read())
 
-# data={
-#     "знать": data["знать"]
-# }
+convert={
+    'f': "feminine",
+    'm': "masculine",
+    'n': "neuter",
+    'pl': "plural",
+    'b': "both",
+    'i': "imperfective",
+    'p': "perfective",
+    '': "unknown",
+}
+
+for word, dlist in data.items():
+    for Dict in dlist:
+        if Dict["overview"]["type"]=="noun":
+            Dict["extra"]["gender"] = convert[Dict["extra"]["gender"]]
+        if Dict["overview"]["type"]=="verb":
+            Dict["extra"]["aspect"] = convert[Dict["extra"]["aspect"]]
+
+data={
+    "знать": data["знать"],
+    "узнать": data["узнать"],
+    "узнавать": data["узнавать"]
+}
 
 # # 一个词一个html
 # for word, dlist in data.items():

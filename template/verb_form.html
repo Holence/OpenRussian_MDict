@@ -13,55 +13,139 @@
             <tr>
                <th>я</th>
                <td>
-                  {% if extra.aspect != "prefective" %}{% if 'ru_verb_presfut_sg1' in forms %}{{forms.ru_verb_presfut_sg1}}{% else %}-{% endif %}{% endif %}
+                  {% if extra.aspect == "perfective" %}
+                  -
+                  {% elif 'ru_verb_presfut_sg1' in forms %}
+                  {{forms.ru_verb_presfut_sg1}}
+                  {% else %}
+                  -
+                  {% endif %}
                </td>
                <td>
-                  {% if extra.aspect != "prefective" %}бу́ду {{overview.accented}}{% else %}{% if 'ru_verb_presfut_sg1' in forms %}{{forms.ru_verb_presfut_sg1}}{% else %}-{% endif %}{% endif %}
+                  {% if extra.aspect == "perfective" %}
+                  {% if 'ru_verb_presfut_sg1' in forms %}
+                  {{forms.ru_verb_presfut_sg1}}
+                  {% else %}
+                  -
+                  {% endif %}
+                  {% else %}
+                  бу́ду {{overview.accented}}
+                  {% endif %}
                </td>
             </tr>
             <tr>
                <th>ты</th>
                <td>
-                  {% if extra.aspect != "prefective" %}{% if 'ru_verb_presfut_sg2' in forms %}{{forms.ru_verb_presfut_sg2}}{% else %}-{% endif %}{% endif %}
+                  {% if extra.aspect == "perfective" %}
+                  -
+                  {% elif 'ru_verb_presfut_sg2' in forms %}
+                  {{forms.ru_verb_presfut_sg2}}
+                  {% else %}
+                  -
+                  {% endif %}
                </td>
                <td>
-                  {% if extra.aspect != "prefective" %}бу́дешь {{overview.accented}}{% else %}{% if 'ru_verb_presfut_sg2' in forms %}{{forms.ru_verb_presfut_sg2}}{% else %}-{% endif %}{% endif %}
+                  {% if extra.aspect == "perfective" %}
+                  {% if 'ru_verb_presfut_sg2' in forms %}
+                  {{forms.ru_verb_presfut_sg2}}
+                  {% else %}
+                  -
+                  {% endif %}
+                  {% else %}
+                  бу́дешь {{overview.accented}}
+                  {% endif %}
                </td>
             </tr>
             <tr>
                <th>он/она́/оно́</th>
                <td>
-                  {% if extra.aspect != "prefective" %}{% if 'ru_verb_presfut_sg3' in forms %}{{forms.ru_verb_presfut_sg3}}{% else %}-{% endif %}{% endif %}
+                  {% if extra.aspect == "perfective" %}
+                  -
+                  {% elif 'ru_verb_presfut_sg3' in forms %}
+                  {{forms.ru_verb_presfut_sg3}}
+                  {% else %}
+                  -
+                  {% endif %}
                </td>
                <td>
-                  {% if extra.aspect != "prefective" %}бу́дет {{overview.accented}}{% else %}{% if 'ru_verb_presfut_sg3' in forms %}{{forms.ru_verb_presfut_sg3}}{% else %}-{% endif %}{% endif %}
+                  {% if extra.aspect == "perfective" %}
+                  {% if 'ru_verb_presfut_sg3' in forms %}
+                  {{forms.ru_verb_presfut_sg3}}
+                  {% else %}
+                  -
+                  {% endif %}
+                  {% else %}
+                  бу́дет {{overview.accented}}
+                  {% endif %}
                </td>
             </tr>
             <tr>
                <th>мы</th>
                <td>
-                  {% if extra.aspect != "prefective" %}{% if 'ru_verb_presfut_pl1' in forms %}{{forms.ru_verb_presfut_pl1}}{% else %}-{% endif %}{% endif %}
+                  {% if extra.aspect == "perfective" %}
+                  -
+                  {% elif 'ru_verb_presfut_pl1' in forms %}
+                  {{forms.ru_verb_presfut_pl1}}
+                  {% else %}
+                  -
+                  {% endif %}
                </td>
                <td>
-                  {% if extra.aspect != "prefective" %}бу́дем {{overview.accented}}{% else %}{% if 'ru_verb_presfut_pl1' in forms %}{{forms.ru_verb_presfut_pl1}}{% else %}-{% endif %}{% endif %}
+                  {% if extra.aspect == "perfective" %}
+                  {% if 'ru_verb_presfut_pl1' in forms %}
+                  {{forms.ru_verb_presfut_pl1}}
+                  {% else %}
+                  -
+                  {% endif %}
+                  {% else %}
+                  бу́дем {{overview.accented}}
+                  {% endif %}
                </td>
             </tr>
             <tr>
                <th>вы</th>
                <td>
-                  {% if extra.aspect != "prefective" %}{% if 'ru_verb_presfut_pl2' in forms %}{{forms.ru_verb_presfut_pl2}}{% else %}-{% endif %}{% endif %}
+                  {% if extra.aspect == "perfective" %}
+                  -
+                  {% elif 'ru_verb_presfut_pl2' in forms %}
+                  {{forms.ru_verb_presfut_pl2}}
+                  {% else %}
+                  -
+                  {% endif %}
                </td>
                <td>
-                  {% if extra.aspect != "prefective" %}бу́дете {{overview.accented}}{% else %}{% if 'ru_verb_presfut_pl2' in forms %}{{forms.ru_verb_presfut_pl2}}{% else %}-{% endif %}{% endif %}
+                  {% if extra.aspect == "perfective" %}
+                  {% if 'ru_verb_presfut_pl2' in forms %}
+                  {{forms.ru_verb_presfut_pl2}}
+                  {% else %}
+                  -
+                  {% endif %}
+                  {% else %}
+                  бу́дете {{overview.accented}}
+                  {% endif %}
                </td>
             </tr>
             <tr>
                <th>они́</th>
                <td>
-                  {% if extra.aspect != "prefective" %}{% if 'ru_verb_presfut_pl3' in forms %}{{forms.ru_verb_presfut_pl3}}{% else %}-{% endif %}{% endif %}
+                  {% if extra.aspect == "perfective" %}
+                  -
+                  {% elif 'ru_verb_presfut_pl3' in forms %}
+                  {{forms.ru_verb_presfut_pl3}}
+                  {% else %}
+                  -
+                  {% endif %}
                </td>
                <td>
-                  {% if extra.aspect != "prefective" %}бу́дут {{overview.accented}}{% else %}{% if 'ru_verb_presfut_pl3' in forms %}{{forms.ru_verb_presfut_pl3}}{% else %}-{% endif %}{% endif %}
+                  {% if extra.aspect == "perfective" %}
+                  {% if 'ru_verb_presfut_pl3' in forms %}
+                  {{forms.ru_verb_presfut_pl3}}
+                  {% else %}
+                  -
+                  {% endif %}
+                  {% else %}
+                  бу́дут {{overview.accented}}
+                  {% endif %}
                </td>
             </tr>
          </tbody>
