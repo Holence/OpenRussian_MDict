@@ -41,11 +41,11 @@ for word, dlist in data.items():
         if Dict["overview"]["type"]=="verb":
             Dict["extra"]["aspect"] = convert[Dict["extra"]["aspect"]]
 
-data={
-    "знать": data["знать"],
-    "узнать": data["узнать"],
-    "узнавать": data["узнавать"]
-}
+# data={
+#     "знать": data["знать"],
+#     "узнать": data["узнать"],
+#     "узнавать": data["узнавать"]
+# }
 
 # # 一个词一个html
 # for word, dlist in data.items():

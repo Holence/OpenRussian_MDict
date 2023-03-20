@@ -12,6 +12,22 @@ def show_na_column(df):
 words=pd.read_csv(
     "russian3/words.csv",
     usecols=["id", "bare", "accented", "derived_from_word_id", "rank", "disabled", "usage_en", "type"])
+
+# %%
+# 有些词竟然还有多余的空格……
+print(words["bare"].str.contains(" $").sum())
+print(words["bare"].str.contains("^ ").sum())
+words["bare"]=words["bare"].apply(lambda x:x.strip())
+print(words["bare"].str.contains(" $").sum())
+print(words["bare"].str.contains("^ ").sum())
+
+print(words["accented"].str.contains(" $").sum())
+print(words["accented"].str.contains("^ ").sum())
+words["accented"]=words["accented"].apply(lambda x:x.strip())
+print(words["accented"].str.contains(" $").sum())
+print(words["accented"].str.contains("^ ").sum())
+
+# %%
 words["derived_from_word_id"].fillna(-1, inplace=True)
 words["rank"].fillna(-1, inplace=True)
 words["usage_en"].fillna("", inplace=True)
@@ -41,13 +57,13 @@ del nan_list
 
 # %%
 # Disabled的词、type为NaN的词，将没有主页面，但是可以被relate到
-selected_words=words[~pd.isna(words["type"])]
+selected_words=words[~pd.isna(words["type"])].copy(deep=True)
 selected_words=selected_words[selected_words["disabled"]==0]
 selected_words.drop(columns=["disabled"], inplace=True)
 selected_words.info()
 show_na_column(selected_words)
 
-other_words=words[(pd.isna(words["type"])) | (words["disabled"]==1)]
+other_words=words[(pd.isna(words["type"])) | (words["disabled"]==1)].copy(deep=True)
 other_words.drop(columns=["bare", "derived_from_word_id", "rank", "disabled", "usage_en", "type"], inplace=True)
 other_words.info()
 show_na_column(other_words)
@@ -57,6 +73,14 @@ del words
 # %%
 words_forms_csv=pd.read_csv("russian3/words_forms.csv", usecols=["word_id","form_type","form"])
 words_forms_csv["form"].fillna("", inplace=True)
+
+# 有些词竟然还有多余的空格……
+print(words_forms_csv["form"].str.contains(" $").sum())
+print(words_forms_csv["form"].str.contains("^ ").sum())
+words_forms_csv["form"]=words_forms_csv["form"].apply(lambda x:x.strip())
+print(words_forms_csv["form"].str.contains(" $").sum())
+print(words_forms_csv["form"].str.contains("^ ").sum())
+
 dtype={"word_id":"int", "form_type":"string", "form":"string"}
 words_forms_csv=words_forms_csv.astype(dtype)
 words_forms_csv.info(show_counts=True)
