@@ -4,7 +4,7 @@ Convert OpenRussian.org CSVs to mdx
 
 # Building
 
-1. Get CSVs from OpenRussian.org [Database](https://app.togetherdb.com/db/fwoedz5fvtwvq03v/russian3), put them in folder "russian3" and rename them (removing the "russian3 - " part).
+1. Get CSVs from [OpenRussian.org](https://en.openrussian.org/) [Database](https://app.togetherdb.com/db/fwoedz5fvtwvq03v/russian3), put them in folder "russian3" and rename them (removing the "russian3 - " part).
 
 2. From CSVs to dict.json (generate_dict.py \ generate_dict.ipynb)
 
@@ -12,7 +12,7 @@ Convert OpenRussian.org CSVs to mdx
 
 4. Append other word forms (linking to bare form) using "@@@LINK=" (add_links.py)
 
-5. MdxBuilder
+5. [MdxBuilder](https://www.pdawiki.com/forum/thread-42526-1-1.html) (v3.0 RC1 Recommended)
 
    ![MdxBuilder](pic/MdxBuilder.jpg)
 
@@ -25,11 +25,6 @@ PC
 Android
 
 <img src="pic/Eudic_android.png" alt="Eudic_android" style="zoom:50%;" />
-
-# Links
-
-- [OpenRussian](https://en.openrussian.org/) - [Database](https://app.togetherdb.com/db/fwoedz5fvtwvq03v/russian3)
-- [MdxBuilder v3.0](https://www.pdawiki.com/forum/thread-42526-1-1.html)
 
 # Licenses
 
