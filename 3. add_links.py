@@ -27,6 +27,6 @@ print(len(words_forms_csv))
 with open("Mdx_html.txt", "a", encoding="utf-8") as f:
     for i,row in tqdm(words_forms_csv.iterrows()):
         word_id=row["word_id"]
-        form=row["form"]
+        form_bare=row["form_bare"]
         orig_word = words[words["id"]==word_id].iloc[0]["bare"]
-        f.write("%s\n@@@LINK=%s\n</>\n"%(form, orig_word))
+        f.write("%s\n@@@LINK=%s\n</>\n"%(form_bare, orig_word))

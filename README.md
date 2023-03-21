@@ -1,10 +1,24 @@
 # OpenRussian_MDict
 
-Convert OpenRussian.org CSVs to mdx
+Convert [OpenRussian.org](https://en.openrussian.org/) CSVs to mdx
+
+# About OpenRussian.org
+
+> <https://en.openrussian.org/about>
+>
+> We love the world that Wikipedia has introduced: Free information that will be valid for the next 500 years and for everybody's use. Many companies have created databases of the Russian language, but the data was never shared. Our data is getting better every day and is free for download by everyone so other portals and apps can build on this.
+>
+> We have a good core database and users have contributed exactly 209,336 enhancements for the data so far.
+>
+> We want to keep improving the data and constantly add new fields, e.g. which grammatical cases go with which verb. In the end we want to be the best vocabulary portal that we can be, to support learners worldwide looking up words.
+>
+> <https://en.openrussian.org/contribute>
+>
+> OpenRussian.org is a community-driven website, where everyone can edit and improve the site's content. All changes get applied immediately but get reviewed later on by an admin team so don't be afraid to break things. We are very happy for everyone that participates!
 
 # Building
 
-1. Get CSVs from [OpenRussian.org](https://en.openrussian.org/) [Database](https://app.togetherdb.com/db/fwoedz5fvtwvq03v/russian3), put them in folder "russian3" and rename them (removing the "russian3 - " part).
+1. Get CSVs from OpenRussian.org [Database](https://app.togetherdb.com/db/fwoedz5fvtwvq03v/russian3), put them in folder "russian3" and rename them (removing the "russian3 - " part).
 
 2. From CSVs to dict.json (generate_dict.py \ generate_dict.ipynb)
 
