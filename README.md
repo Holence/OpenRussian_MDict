@@ -18,7 +18,7 @@ Convert [OpenRussian.org](https://en.openrussian.org/) CSVs to mdx
 
 # Building
 
-1. Get CSVs from OpenRussian.org [Database](https://app.togetherdb.com/db/fwoedz5fvtwvq03v/russian3), put them in folder "russian3" and rename them (removing the "russian3 - " part).
+1. Get CSVs from OpenRussian.org [Database](https://app.togetherdb.com/db/fwoedz5fvtwvq03v/russian3), put them in folder "russian3".
 
 2. From CSVs to dict.json (generate_dict.py \ generate_dict.ipynb)
 

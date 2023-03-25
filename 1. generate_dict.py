@@ -10,7 +10,7 @@ def show_na_column(df):
 
 # %%
 words=pd.read_csv(
-    "russian3/words.csv",
+    "russian3/russian3 - words.csv",
     usecols=["id", "bare", "accented", "derived_from_word_id", "rank", "disabled", "usage_en", "type"])
 
 # %%
@@ -30,6 +30,7 @@ print(words["accented"].str.contains("^ ").sum())
 # %%
 words["derived_from_word_id"].fillna(-1, inplace=True)
 words["rank"].fillna(-1, inplace=True)
+words["accented"]=words["accented"].map(convertStress)
 words["usage_en"].fillna("", inplace=True)
 words["usage_en"].replace("\\\\n", "\\n", regex=True,inplace=True)
 dtype={"id":"int", "bare":"string", "accented":"string", "derived_from_word_id":"int", "rank":"int", "disabled":"int", "usage_en":"string", "type":"string"}
@@ -62,43 +63,100 @@ selected_words=selected_words[selected_words["disabled"]==0]
 selected_words.drop(columns=["disabled"], inplace=True)
 selected_words.info()
 show_na_column(selected_words)
+selected_words_dict=selected_words.set_index("id").to_dict("index")
+del selected_words
 
 other_words=words[(pd.isna(words["type"])) | (words["disabled"]==1)].copy(deep=True)
 other_words.drop(columns=["bare", "derived_from_word_id", "rank", "disabled", "usage_en", "type"], inplace=True)
 other_words.info()
 show_na_column(other_words)
+other_words_dict=other_words.set_index("id").to_dict("index")
+del other_words
 
 del words
 
 # %%
-words_forms_csv=pd.read_csv("russian3/words_forms.csv", usecols=["word_id","form_type","form"])
+words_forms_csv=pd.read_csv("russian3/russian3 - words_forms.csv", usecols=["word_id","form_type","form"])
 words_forms_csv["form"].fillna("", inplace=True)
 
-# 有些词竟然还有多余的空格……
+# 有些词竟然还有多余的空格括号……
 print(words_forms_csv["form"].str.contains(" $").sum())
 print(words_forms_csv["form"].str.contains("^ ").sum())
 words_forms_csv["form"]=words_forms_csv["form"].apply(lambda x:x.strip())
 print(words_forms_csv["form"].str.contains(" $").sum())
 print(words_forms_csv["form"].str.contains("^ ").sum())
+# 有些词竟然还有多余的括号……
+print(words_forms_csv["form"].str.contains(")").sum())
+print(words_forms_csv["form"].str.contains("(").sum())
+words_forms_csv["form"]=words_forms_csv["form"].apply(lambda x:x.strip("()"))
+print(words_forms_csv["form"].str.contains("(").sum())
+print(words_forms_csv["form"].str.contains(")").sum())
 
+words_forms_csv["form"]=words_forms_csv["form"].map(convertStress)
 dtype={"word_id":"int", "form_type":"string", "form":"string"}
 words_forms_csv=words_forms_csv.astype(dtype)
 words_forms_csv.info(show_counts=True)
 show_na_column(words_forms_csv)
 
+print("Builing Word Form Dict...")
+words_forms_csv_dict={}
+print(len(words_forms_csv))
+for i, row in tqdm(words_forms_csv.iterrows()):
+    word_id=row["word_id"]
+    if words_forms_csv_dict.get(word_id)==None:
+        words_forms_csv_dict[word_id]={}
+    
+    form_type=row["form_type"]
+    form=row["form"]
+    if words_forms_csv_dict[word_id].get(form_type)==None:
+        words_forms_csv_dict[word_id][form_type]=form
+    else:
+        words_forms_csv_dict[word_id][form_type]+=", "+form
+
+del words_forms_csv
+
 # %%
-words_rels_csv=pd.read_csv("russian3/words_rels.csv", usecols=["word_id","rel_word_id","relation"])
+words_rels_csv=pd.read_csv("russian3/russian3 - words_rels.csv", usecols=["word_id","rel_word_id","relation"])
 dtype={"word_id":"int", "rel_word_id":"int", "relation":"string"}
 words_rels_csv=words_rels_csv.astype(dtype)
 words_rels_csv.info()
 show_na_column(words_rels_csv)
 
+print("Builing Word Relation Dict...")
+words_rels_csv_dict={}
+print(len(words_rels_csv))
+for i, row in tqdm(words_rels_csv.iterrows()):
+    word_id=row["word_id"]
+    rel_word_id=row["rel_word_id"]
+    relation=row["relation"]
+    
+    if words_rels_csv_dict.get(word_id)==None:
+        words_rels_csv_dict[word_id]={
+            "related":[],
+            "synonym":[],
+            "antonym":[]
+        }
+    if rel_word_id not in words_rels_csv_dict[word_id][relation]:
+        words_rels_csv_dict[word_id][relation].append(rel_word_id)
+
+    if words_rels_csv_dict.get(rel_word_id)==None:
+        words_rels_csv_dict[rel_word_id]={
+            "related":[],
+            "synonym":[],
+            "antonym":[]
+        }
+    if word_id not in words_rels_csv_dict[rel_word_id][relation]:
+        words_rels_csv_dict[rel_word_id][relation].append(word_id)
+
+del words_rels_csv
+
 # %%
-nouns_csv=pd.read_csv("russian3/nouns.csv")
+nouns_csv=pd.read_csv("russian3/russian3 - nouns.csv")
 # both->b
 nouns_csv["gender"]=nouns_csv["gender"].map({"f":"f", "m":"m", "n":"n", "pl":"pl","both":"b"})
 nouns_csv["gender"].fillna("", inplace=True)
 nouns_csv["partner"].fillna("", inplace=True)
+nouns_csv["partner"]=nouns_csv["partner"].map(convertStress)
 nouns_csv["animate"].fillna(0, inplace=True)
 nouns_csv["indeclinable"].fillna(0, inplace=True)
 nouns_csv["sg_only"].fillna(0, inplace=True)
@@ -108,29 +166,41 @@ nouns_csv=nouns_csv.astype(dtype)
 nouns_csv.info()
 show_na_column(nouns_csv)
 
+nouns_csv_dict=nouns_csv.set_index("word_id").to_dict("index")
+del nouns_csv
+
 # %%
-verbs_csv=pd.read_csv("russian3/verbs.csv", usecols=["word_id","aspect","partner"])
+verbs_csv=pd.read_csv("russian3/russian3 - verbs.csv", usecols=["word_id","aspect","partner"])
 # imperfective->i, perfective->p, both->b
 verbs_csv["aspect"]=verbs_csv["aspect"].map({"imperfective":"i", "perfective":"p", "both":"b"})
 verbs_csv["aspect"].fillna("", inplace=True)
+
+def func(s):
+    return convertStress(s).replace(";", ", ")
 verbs_csv["partner"].fillna("", inplace=True)
+verbs_csv["partner"]=verbs_csv["partner"].map(func)
+
 dtype={"word_id":"int", "aspect":"string", "partner":"string"}
 verbs_csv=verbs_csv.astype(dtype)
 verbs_csv.info()
 show_na_column(verbs_csv)
 
+verbs_csv_dict=verbs_csv.set_index("word_id").to_dict("index")
+del verbs_csv
+
 # %%
-expressions_words_csv=pd.read_csv("russian3/expressions_words.csv", usecols=["expression_id", "referenced_word_id"])
+expressions_words_csv=pd.read_csv("russian3/russian3 - expressions_words.csv", usecols=["expression_id", "referenced_word_id"])
 dtype={"expression_id":"int", "referenced_word_id":"int"}
 expressions_words_csv=expressions_words_csv.astype(dtype)
 expressions_words_csv.info()
 show_na_column(expressions_words_csv)
 
 # %%
-translations_csv=pd.read_csv("russian3/translations.csv")
+translations_csv=pd.read_csv("russian3/russian3 - translations.csv")
 translations_csv=translations_csv[translations_csv["lang"]=="en"] # 只留英语的翻译
 translations_csv.drop(columns=["id", "lang", "position"], inplace=True)
 translations_csv["example_ru"].fillna("", inplace=True)
+translations_csv["example_ru"]=translations_csv["example_ru"].map(convertStress)
 translations_csv["example_tl"].fillna("", inplace=True)
 translations_csv["info"].fillna("", inplace=True)
 dtype={"word_id":"int", "tl":"string", "example_ru":"string", "example_tl":"string", "info":"string"}
@@ -138,79 +208,116 @@ translations_csv=translations_csv.astype(dtype)
 translations_csv.info()
 show_na_column(translations_csv)
 
-# %%
-sentences_csv=pd.read_csv("russian3/sentences.csv", usecols=["id", "ru"])
-dtype={"id":"int", "ru":"string"}
-sentences_csv=sentences_csv.astype(dtype)
-sentences_csv.info()
-show_na_column(sentences_csv)
+print("Builing Word Translation Dict...")
+translations_csv_dict={}
+print(len(translations_csv))
+for i, row in tqdm(translations_csv.iterrows()):
+    word_id=row["word_id"]
+    if translations_csv_dict.get(word_id)==None:
+        translations_csv_dict[word_id]=[]
+    
+    translations_csv_dict[word_id].append([
+        row["tl"],
+        row["example_ru"],
+        row["example_tl"],
+        row["info"],
+    ])
+
+del translations_csv
 
 # %%
-sentences_words_csv=pd.read_csv("russian3/sentences_words.csv", usecols=["sentence_id", "word_id"])
-dtype={"sentence_id":"int", "word_id":"int"}
-sentences_words_csv=sentences_words_csv.astype(dtype)
-sentences_words_csv.info()
-show_na_column(sentences_words_csv)
-
-# %%
-sentences_translations_csv=pd.read_csv("russian3/sentences_translations.csv", usecols=["sentence_id", "tl_en"])
+sentences_translations_csv=pd.read_csv("russian3/russian3 - sentences_translations.csv", usecols=["sentence_id", "tl_en"])
 sentences_translations_csv=sentences_translations_csv[sentences_translations_csv["tl_en"].isna()==False]
 dtype={"sentence_id":"int", "tl_en":"string"}
 sentences_translations_csv=sentences_translations_csv.astype(dtype)
 sentences_translations_csv.info()
 show_na_column(sentences_translations_csv)
 
+sentences_translations_csv_dict=sentences_translations_csv.set_index("sentence_id").to_dict("index")
+
+# %%
+sentences_csv=pd.read_csv("russian3/russian3 - sentences.csv", usecols=["id", "ru"])
+dtype={"id":"int", "ru":"string"}
+sentences_csv=sentences_csv.astype(dtype)
+# 剔除没有翻译的
+sentences_csv=sentences_csv[sentences_csv["id"].isin(sentences_translations_csv["sentence_id"])]
+sentences_csv["ru"]=sentences_csv["ru"].map(convertStress)
+sentences_csv.info()
+show_na_column(sentences_csv)
+
+sentences_csv_dict=sentences_csv.set_index("id").to_dict("index")
+
+# %%
+sentences_words_csv=pd.read_csv("russian3/russian3 - sentences_words.csv", usecols=["sentence_id", "word_id"])
+dtype={"sentence_id":"int", "word_id":"int"}
+sentences_words_csv=sentences_words_csv.astype(dtype)
+# 剔除没有翻译的
+sentences_words_csv=sentences_words_csv[sentences_words_csv["sentence_id"].isin(sentences_translations_csv["sentence_id"])]
+sentences_words_csv.info(show_counts=True)
+show_na_column(sentences_words_csv)
+
+print("Builing Sentence Dict...")
+sentences_words_csv_dict={}
+print(len(sentences_words_csv))
+for i, row in tqdm(sentences_words_csv.iterrows()):
+    word_id=row["word_id"]
+    sentence_id=row["sentence_id"]
+    if sentences_words_csv_dict.get(word_id)==None:
+        sentences_words_csv_dict[word_id]=[]
+
+    # 取前10个
+    if len(sentences_words_csv_dict[word_id])<10:
+        sentences_words_csv_dict[word_id].append([
+            sentences_csv_dict[sentence_id]["ru"],
+            sentences_translations_csv_dict[sentence_id]["tl_en"],
+        ])
+
+del sentences_csv
+del sentences_csv_dict
+del sentences_words_csv
+del sentences_translations_csv
+del sentences_translations_csv_dict
+
 # %%
 def get_accented(word_id: int):
     accented=""
-    if word_id in selected_words["id"].values:
-        accented=convertStress(selected_words[selected_words["id"]==word_id].iloc[0]["accented"])
-    elif word_id in other_words["id"].values:
-        accented=convertStress(other_words[other_words["id"]==word_id].iloc[0]["accented"])
+    try:
+        accented=selected_words_dict[word_id]["accented"]
+    except:
+        try:
+            accented=other_words_dict[word_id]["accented"]
+        except:
+            pass
     return accented
 
 def get_extra_info(word_id: int, Type: str):
     info={}
     if Type=="noun":
-        if word_id in nouns_csv["word_id"].values:
-            row=nouns_csv[nouns_csv["word_id"]==word_id].iloc[0]
-            info={
-                "gender": row["gender"],
-                "partner": convertStress(row["partner"]),
-                "indeclinable": row["indeclinable"],
-                "animate": row["animate"],
-                "sg_only": row["sg_only"],
-                "pl_only": row["pl_only"],
-            }
+        try:
+            info=nouns_csv_dict[word_id]
+        except:
+            pass
     elif Type=="verb":
-        if word_id in verbs_csv["word_id"].values:
-            row=verbs_csv[verbs_csv["word_id"]==word_id].iloc[0]
-            info={
-                "aspect": row["aspect"],
-                "partner": convertStress(row["partner"]).replace(";", ", ")
-            }
-    
+        try:
+            info=verbs_csv_dict[word_id]
+        except:
+            pass
     return info
 
 def get_translations(word_id: int):
     translation_list=[]
-    if word_id in translations_csv["word_id"].values:
-        table=translations_csv[translations_csv["word_id"]==word_id]
-        for i, row in table.iterrows():
-            translation_list.append([
-                row["tl"],
-                convertStress(row["example_ru"]),
-                row["example_tl"],
-                row["info"],
-            ])
+    try:
+        translation_list=translations_csv_dict[word_id]
+    except:
+        pass
     return translation_list
 
 def get_translation_str(word_id: int):
     translation_list=[]
-    if word_id in translations_csv["word_id"].values:
-        table=translations_csv[translations_csv["word_id"]==word_id]
-        for i, row in table.iterrows():
-            translation_list.append(row["tl"])
+    try:
+        translation_list=[i[0] for i in translations_csv_dict[word_id]]
+    except:
+        pass
     return "; ".join(translation_list)
 
 def get_expressions(word_id: int, Type: str):
@@ -239,28 +346,18 @@ def get_expressions(word_id: int, Type: str):
 
 def get_sentences(word_id: int):
     sentence_list=[]
-    if word_id in sentences_words_csv["word_id"].values:
-        sentence_id_list=sentences_words_csv[sentences_words_csv["word_id"]==word_id]["sentence_id"].values
-        for sentence_id in sentence_id_list:
-            if sentence_id in sentences_csv["id"].values and sentence_id in sentences_translations_csv["sentence_id"].values:
-                sentence_list.append([
-                    convertStress(sentences_csv[sentences_csv["id"]==sentence_id].iloc[0]["ru"]),
-                    sentences_translations_csv[sentences_translations_csv["sentence_id"]==sentence_id].iloc[0]["tl_en"],
-                ])
-            # 取前10个
-            if len(sentence_list)==10:
-                break
+    try:
+        sentence_list=sentences_words_csv_dict[word_id]
+    except:
+        pass
     return sentence_list
 
 def get_forms(word_id: int):
     forms_dict={}
-    if word_id in words_forms_csv["word_id"].values:
-        table=words_forms_csv[words_forms_csv["word_id"]==word_id]
-        forms_list=table["form_type"].unique().tolist()
-        for form_type in forms_list:
-            form=", ".join(table[table["form_type"]==form_type]["form"])
-            # form_bare=", ".join(table[table["form_type"]==form_type]["form_bare"])
-            forms_dict[form_type]=convertStress(form)
+    try:
+        forms_dict=words_forms_csv_dict[word_id]
+    except:
+        pass
     return forms_dict
 
 def get_relateds(word_id: int):
@@ -269,35 +366,29 @@ def get_relateds(word_id: int):
         "synonym":[],
         "antonym":[]
     }
-    if word_id in words_rels_csv["word_id"].values:
-        table=words_rels_csv[words_rels_csv["word_id"]==word_id]
-        for i, row in table.iterrows():
-            rel_word_id=row["rel_word_id"]
-            relation=row["relation"]
-            relateds_word[relation].append(rel_word_id)
-    if word_id in words_rels_csv["rel_word_id"].values:
-        table=words_rels_csv[words_rels_csv["rel_word_id"]==word_id]
-        for i, row in table.iterrows():
-            rel_word_id=row["word_id"]
-            relation=row["relation"]
-            if rel_word_id not in relateds_word[relation]:
-                relateds_word[relation].append(rel_word_id)
+    try:
+        relateds_word=words_rels_csv_dict[word_id]
+    except:
+        pass
+    
+    relateds={}
     for k in relateds_word:
-        relateds_word[k] = [ [get_accented(v), get_translation_str(v)] for v in relateds_word[k] ]
-    return relateds_word
+        relateds[k] = [ [get_accented(v), get_translation_str(v)] for v in relateds_word[k] ]
+    return relateds
 
 
 # %%
 word_dict={}
-print(len(selected_words))
-for i,row in tqdm(selected_words.iterrows()):
-    word_id=row["id"]
-    bare=row["bare"]
-    accented = row["accented"]
-    derived_from_word_id = row["derived_from_word_id"]
-    rank = row["rank"]
-    usage_en = row["usage_en"]
-    Type=row["type"]
+print(len(selected_words_dict))
+
+for word_id, value in tqdm(selected_words_dict.items()):
+
+    bare=value["bare"]
+    accented = value["accented"]
+    derived_from_word_id = value["derived_from_word_id"]
+    rank = value["rank"]
+    usage_en = value["usage_en"]
+    Type=value["type"]
     
     if word_dict.get(bare)==None:
         word_dict[bare]=[]
@@ -306,7 +397,7 @@ for i,row in tqdm(selected_words.iterrows()):
         "id": word_id,
         "overview":{
             "type": Type,
-            "accented": convertStress(accented),
+            "accented": accented,
             "derived_from_word": get_accented(derived_from_word_id),
             "rank": rank
         },
@@ -320,7 +411,6 @@ for i,row in tqdm(selected_words.iterrows()):
     }
     
     word_dict[bare].append(temp_dict)
-
 
 # %%
 class CustomJSONizer(json.JSONEncoder):
