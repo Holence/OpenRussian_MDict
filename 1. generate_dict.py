@@ -4,6 +4,7 @@ from utils import *
 import json
 import numpy as np
 from tqdm import tqdm
+import random
 
 def show_na_column(df):
     print("NaN:", [i for i in list(df.isnull().sum().items()) if i[1]])
@@ -79,7 +80,7 @@ del words
 words_forms_csv=pd.read_csv("russian3/russian3 - words_forms.csv", usecols=["word_id","form_type","form"])
 words_forms_csv["form"].fillna("", inplace=True)
 
-# 有些词竟然还有多余的空格括号……
+# 有些词竟然还有多余的空格……
 print(words_forms_csv["form"].str.contains(" $").sum())
 print(words_forms_csv["form"].str.contains("^ ").sum())
 words_forms_csv["form"]=words_forms_csv["form"].apply(lambda x:x.strip())
@@ -100,8 +101,7 @@ show_na_column(words_forms_csv)
 
 print("Builing Word Form Dict...")
 words_forms_csv_dict={}
-print(len(words_forms_csv))
-for i, row in tqdm(words_forms_csv.iterrows()):
+for i, row in tqdm(words_forms_csv.iterrows(), total=len(words_forms_csv)):
     word_id=row["word_id"]
     if words_forms_csv_dict.get(word_id)==None:
         words_forms_csv_dict[word_id]={}
@@ -124,8 +124,7 @@ show_na_column(words_rels_csv)
 
 print("Builing Word Relation Dict...")
 words_rels_csv_dict={}
-print(len(words_rels_csv))
-for i, row in tqdm(words_rels_csv.iterrows()):
+for i, row in tqdm(words_rels_csv.iterrows(), total=len(words_rels_csv)):
     word_id=row["word_id"]
     rel_word_id=row["rel_word_id"]
     relation=row["relation"]
@@ -210,8 +209,7 @@ show_na_column(translations_csv)
 
 print("Builing Word Translation Dict...")
 translations_csv_dict={}
-print(len(translations_csv))
-for i, row in tqdm(translations_csv.iterrows()):
+for i, row in tqdm(translations_csv.iterrows(), total=len(translations_csv)):
     word_id=row["word_id"]
     if translations_csv_dict.get(word_id)==None:
         translations_csv_dict[word_id]=[]
@@ -256,22 +254,32 @@ sentences_words_csv=sentences_words_csv[sentences_words_csv["sentence_id"].isin(
 sentences_words_csv.info(show_counts=True)
 show_na_column(sentences_words_csv)
 
+print("Builing Word to Sentence Dict...")
+print(len(sentences_words_csv))
+word_to_sentence_dict={}
+for i, row in tqdm(sentences_words_csv.iterrows(), total=len(sentences_words_csv)):
+    word_id=row["word_id"]
+    if word_to_sentence_dict.get(word_id)==None:
+        word_to_sentence_dict[word_id]=[row["sentence_id"]]
+    else:
+        word_to_sentence_dict[word_id].append(row["sentence_id"])
+
 print("Builing Sentence Dict...")
 sentences_words_csv_dict={}
-print(len(sentences_words_csv))
-for i, row in tqdm(sentences_words_csv.iterrows()):
-    word_id=row["word_id"]
-    sentence_id=row["sentence_id"]
-    if sentences_words_csv_dict.get(word_id)==None:
-        sentences_words_csv_dict[word_id]=[]
-
+for word_id in tqdm(word_to_sentence_dict):
+    sentence_ids=word_to_sentence_dict[word_id]
+    # 打乱排序
+    random.shuffle(sentence_ids)
     # 取前10个
-    if len(sentences_words_csv_dict[word_id])<10:
+    sentence_ids=sentence_ids[:10]
+    sentences_words_csv_dict[word_id]=[]
+    for sentence_id in sentence_ids:
         sentences_words_csv_dict[word_id].append([
             sentences_csv_dict[sentence_id]["ru"],
             sentences_translations_csv_dict[sentence_id]["tl_en"],
         ])
 
+del word_to_sentence_dict
 del sentences_csv
 del sentences_csv_dict
 del sentences_words_csv

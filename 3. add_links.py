@@ -13,20 +13,20 @@ words.info()
 
 word_dict=dict(zip(words["id"].values.tolist(), words["bare"].values.tolist()))
 
-words_forms_csv=pd.read_csv("russian3/russian3 - words_forms.csv", usecols=["word_id", "form_bare"])
-words_forms_csv=words_forms_csv[~words_forms_csv["form_bare"].isna()]
-words_forms_csv["form_bare"]=words_forms_csv["form_bare"].apply(lambda x:x.strip())
-words_forms_csv["form_bare"]=words_forms_csv["form_bare"].apply(lambda x:x.strip("()"))
-words_forms_csv=words_forms_csv[words_forms_csv["form_bare"]!="-"]
-words_forms_csv=words_forms_csv[words_forms_csv["form_bare"]!="—"]
+words_forms_csv=pd.read_csv("russian3/russian3 - words_forms.csv", usecols=["word_id", "_form_bare"])
+words_forms_csv=words_forms_csv[~words_forms_csv["_form_bare"].isna()]
+words_forms_csv["_form_bare"]=words_forms_csv["_form_bare"].apply(lambda x:x.strip())
+words_forms_csv["_form_bare"]=words_forms_csv["_form_bare"].apply(lambda x:x.strip("()"))
+words_forms_csv=words_forms_csv[words_forms_csv["_form_bare"]!="-"]
+words_forms_csv=words_forms_csv[words_forms_csv["_form_bare"]!="—"]
 # 因为words中剔除了部分type为NaN和disabled的，这里只链接form原型在words中的部分
 words_forms_csv=words_forms_csv[words_forms_csv["word_id"].isin(words["id"].values)]
 
-dtype={"word_id":"int", "form_bare":"string"}
+dtype={"word_id":"int", "_form_bare":"string"}
 words_forms_csv=words_forms_csv.astype(dtype)
 words_forms_csv.info(show_counts=True)
 
-words_forms_iter=zip(words_forms_csv["word_id"].values.tolist(), words_forms_csv["form_bare"].values.tolist())
+words_forms_iter=zip(words_forms_csv["word_id"].values.tolist(), words_forms_csv["_form_bare"].values.tolist())
 
 del words
 del words_forms_csv
