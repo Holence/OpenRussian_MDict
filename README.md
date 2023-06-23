@@ -16,6 +16,10 @@ Convert [OpenRussian.org](https://en.openrussian.org/) CSVs to mdx
 >
 > OpenRussian.org is a community-driven website, where everyone can edit and improve the site's content. All changes get applied immediately but get reviewed later on by an admin team so don't be afraid to break things. We are very happy for everyone that participates!
 
+# Download
+
+You can download pre-build mdict at [Release Page](https://github.com/Holence/OpenRussian_MDict/releases)
+
 # Building
 
 Run `run.cmd` or run each python script step by step:
