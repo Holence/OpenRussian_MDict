@@ -90,8 +90,8 @@ print(words_forms_csv["form"].str.contains("^ ").sum())
 print(words_forms_csv["form"].str.contains("\)").sum())
 print(words_forms_csv["form"].str.contains("\(").sum())
 words_forms_csv["form"]=words_forms_csv["form"].apply(lambda x:x.strip("()"))
-print(words_forms_csv["form"].str.contains("\(").sum())
 print(words_forms_csv["form"].str.contains("\)").sum())
+print(words_forms_csv["form"].str.contains("\(").sum())
 
 words_forms_csv["form"]=words_forms_csv["form"].map(convertStress)
 dtype={"word_id":"int", "form_type":"string", "form":"string"}
