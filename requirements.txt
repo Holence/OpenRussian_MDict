@@ -1,0 +1,6 @@
+requests
+tqdm
+django
+minify_html
+numpy
+pandas
