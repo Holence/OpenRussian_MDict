@@ -82,27 +82,6 @@ input {
   color: #fff
 }
 
-.icon:before {
-  font-family: icons;
-  speak: none;
-  font-style: normal;
-  font-weight: 400;
-  font-feature-settings: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale
-}
-
-@font-face {
-  font-family: icons;
-  src: url(/fonts/icomoon/icomoon8.eot) format("embedded-opentype");
-  src: url(/fonts/icomoon/icomoon8.ttf) format("truetype");
-  font-weight: 400;
-  font-style: normal
-}
-
 * {
   box-sizing: border-box
 }
@@ -373,13 +352,6 @@ button.star:not([disabled]) {
   button.star:not([disabled]):hover {
     color: #0039a6
   }
-}
-
-.icon2 {
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  fill: currentColor
 }
 
 @keyframes bouncing-loader {
