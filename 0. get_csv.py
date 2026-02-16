@@ -17,10 +17,10 @@ def download(url: str, fname: str, chunk_size=1024):
             size = file.write(data)
             bar.update(size)
 
-if not os.path.exists("russian3"):
-    os.makedirs("russian3")
+if not os.path.exists("openrussian_public"):
+    os.makedirs("openrussian_public")
 
-structure=requests.get("https://ger1.togetherdb.com/connections/fwoedz5fvtwvq03v/databases/russian3/structure").json()
+structure=requests.get("https://ger1.togetherdb.com/connections/fwoedz5fvtwvq03v/databases/openrussian_public/structure").json()
 
 table_names=[]
 for table in structure["result"]["tables"]:
@@ -30,12 +30,12 @@ time.sleep(1)
 
 for table_name in table_names:
     print(table_name)
-    key=requests.post("https://ger1.togetherdb.com/connections/fwoedz5fvtwvq03v/databases/russian3/tables/%s/export?expand=false&filter=&separator=%%2C"%table_name).json()["result"]["exportKey"]
+    key=requests.post("https://ger1.togetherdb.com/connections/fwoedz5fvtwvq03v/databases/openrussian_public/tables/%s/export?expand=false&filter=&separator=%%2C"%table_name).json()["result"]["exportKey"]
     
     url="https://ger1.togetherdb.com/exports/%s"%key
     print(url)
 
-    download(url, "russian3/russian3 - %s.csv"%table_name)
+    download(url, "openrussian_public/openrussian_public - %s.csv"%table_name)
     print()
 
     time.sleep(1)

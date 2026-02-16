@@ -24,7 +24,7 @@ You can download pre-build mdict at [Release Page](https://github.com/Holence/Op
 
 Run `run.cmd` or run each python script step by step:
 
-1. Get CSVs from OpenRussian.org [Database](https://app.togetherdb.com/db/fwoedz5fvtwvq03v/russian3). (get_csv.py)
+1. Get CSVs from OpenRussian.org [Database](https://app.togetherdb.com/db/fwoedz5fvtwvq03v/openrussian_public). (get_csv.py)
 
 2. From CSVs to dict.json (generate_dict.py \ generate_dict.ipynb)
 
